@@ -1,6 +1,10 @@
 # GALAXY
 
-**GALAXY (Group Alignment of mass spectrometry data)** is a peak-group–based algorithm for aligning mass spectrometry (MS) spectra onto a common m/z grid. It is designed for imaging and spatial metabolomics data such as MALDI-MS, where spectra from different runs or tissues often exhibit small m/z shifts that prevent direct comparison.
+Anji Deng and Qihuang Zhang*
+
+![Overview of the GALAXY workflow](images/galaxy_workflow.png)
+
+**GALAXY (Group Alignment of mass spectrometry data)** is a peak-group-based algorithm for aligning mass spectrometry (MS) spectra onto a common m/z grid. It is designed for imaging and spatial metabolomics data such as MALDI-MS, where spectra from different runs or tissues often exhibit small m/z shifts that prevent direct comparison.
 
 By aligning an “unknown” spectrum (or dataset) to a reference while *forcing* matched spectra to share the same m/z values, GALAXY enables downstream analyses such as:
 - joint spatial segmentation across tissues or time points  
