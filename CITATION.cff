@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use GALAXY in your research, please cite the accompanying paper."
+title: "GALAXY: Group Alignment of Mass Spectrometry data"
+type: software
+authors:
+  - family-names: Deng
+    given-names: Anji
+    affiliation: "Department of Epidemiology, Biostatistics, and Occupational Health, McGill University"
+  - family-names: Zhang
+    given-names: Yuyang
+    affiliation: "Department of Epidemiology, Biostatistics, and Occupational Health, McGill University"
+  - family-names: Zhang
+    given-names: Qihuang
+    email: qihuang.zhang@mcgill.ca
+    affiliation: "Department of Epidemiology, Biostatistics, and Occupational Health, McGill University"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+repository-code: "https://github.com/StaGill/Galaxy"
+url: "https://github.com/StaGill/Galaxy"
+keywords:
+  - MALDI
+  - mass spectrometry
+  - spatial metabolomics
+  - alignment
+  - imaging
+license: MIT
+preferred-citation:
+  type: article
+  title: "GALAXY: Group Alignment of Mass Spectrometry data for imaging and spatial metabolomics"
+  authors:
+    - family-names: Deng
+      given-names: Anji
+    - family-names: Zhang
+      given-names: Yuyang
+    - family-names: Zhang
+      given-names: Qihuang
+      email: qihuang.zhang@mcgill.ca
+  journal: "Journal of Proteome Research"
+  year: 2026
+  notes: "Manuscript reference: manuscript_GALAXY_JPR-2026-04-07"

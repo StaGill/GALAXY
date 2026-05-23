@@ -1,135 +1,152 @@
 # GALAXY
 
-Anji Deng and Qihuang Zhang*
+**GALAXY (Group Alignment of Mass Spectrometry data)** is a peak-group-based
+algorithm for aligning mass spectrometry (MS) spectra onto a common m/z grid.
+It is designed for imaging and spatial metabolomics data such as MALDI-MS,
+where spectra from different runs or tissues often exhibit small m/z shifts
+that prevent direct comparison.
 
-
-
-**GALAXY (Group Alignment of mass spectrometry data)** is a peak-group-based algorithm for aligning mass spectrometry (MS) spectra onto a common m/z grid. It is designed for imaging and spatial metabolomics data such as MALDI-MS, where spectra from different runs or tissues often exhibit small m/z shifts that prevent direct comparison.
+Anji Deng, Yuyang Zhang, and Qihuang Zhang\*
+McGill University — corresponding author: <qihuang.zhang@mcgill.ca>
 
 ![Overview of the GALAXY workflow](images/galaxy_workflow.png)
 
-By aligning an “unknown” spectrum (or dataset) to a reference while *forcing* matched spectra to share the same m/z values, GALAXY enables downstream analyses such as:
-- joint spatial segmentation across tissues or time points  
-- classification using combined datasets  
-- other multi-sample analyses that require a common m/z grid  
+By aligning an "unknown" spectrum (or dataset) to a reference while *forcing*
+matched spectra to share the same m/z values, GALAXY enables downstream
+analyses such as:
 
-This repository contains the reference Python implementation used in the GALAXY manuscript. 
+- joint spatial segmentation across tissues or time points
+- classification using combined datasets
+- other multi-sample analyses that require a common m/z grid
+
+This repository contains the reference Python implementation accompanying the
+GALAXY manuscript (Deng, Zhang & Zhang, *Journal of Proteome Research*, 2026).
 
 ---
 
 ## Repository layout
 
-- `GalaxyPython/`  
-  Core Python implementation of GALAXY (alignment and peak-group functions).
-
-- `CodeInPaper/`  
-  Scripts used to generate the figures and results in the manuscript
-  (simulation study, macrophage regression data, canine sarcoma data, etc.).
-
-- `Tutorial_GALAXY.ipynb`  
-  A Jupyter notebook tutorial that walks through aligning two MALDI datasets
-  (e.g., Week 2 and Week 5 regression samples) and preparing them for joint
-  segmentation.
-
-- `LICENSE`  
-  License for using and modifying this code.
+- `GalaxyPython/` — Core Python implementation of GALAXY (alignment and peak-group functions).
+- `CodeInPaper/` — Scripts that reproduce the figures and results in the manuscript. See `CodeInPaper/README.md`.
+- `Tutorial_GALAXY.ipynb` — A Jupyter notebook that walks through aligning two MALDI datasets (e.g., Week 2 and Week 5 macrophage samples) and preparing them for joint segmentation.
+- `tests/` — Smoke tests (`pytest`).
+- `CITATION.cff` — Citation metadata.
+- `LICENSE` — MIT license.
 
 ---
 
 ## Installation
 
-Clone the repository:
+Clone the repository and install with `pip`:
 
 ```bash
-git clone https://github.com/StaGill/GALAXY.git
-cd GALAXY
+git clone https://github.com/StaGill/Galaxy.git
+cd Galaxy
+pip install -e .
 ```
 
-You can either add GalaxyPython to your PYTHONPATH, or install it as an editable package, e.g.:
-
-```bash
-pip install -e GalaxyPython
-```
-
-After installation, you should be able to import GALAXY in Python, for example:
+The package's importable name is `GalaxyPython`:
 
 ```python
-import MALDIpython as MALDIpy 
+import GalaxyPython as gx
+print(gx.__version__)
 ```
+
+---
+
+## API at a glance
+
+The four-step pipeline in the paper maps to the following public methods:
+
+| Step | Manuscript section          | Object · method                                   |
+|-----:|-----------------------------|---------------------------------------------------|
+| 1    | Peak Calling                | `PeakCalling.peak_calling(threshold=0.9)`         |
+| 2    | Peak Grouping               | `PeakCalling.peak_grouping(percentile=0.9)`       |
+| 3    | Peak Group Pairing          | `AnnDataMALDI.peak_group_pairing(criteria=0)`     |
+| 4    | Fine Alignment Assessment   | `AnnDataMALDI.fine_alignment_assessment(threshold=0.2)` |
+
+Similarity is measured with Pearson's correlation; Step 3 uses a sliding
+window of +/- 4 m/z units (see Methods of the paper).
+
+The pre-2026 method names (`callpeak`, `grouppeaks`, `greedy_match`,
+`fine_align`) are kept as deprecated aliases and emit `DeprecationWarning`.
+
+---
 
 ## Quick start
 
-A minimal example of running GALAXY on two MALDI datasets is given in
-Tutorial_GALAXY.ipynb. The basic workflow is:
+A minimal example is given in `Tutorial_GALAXY.ipynb`. The basic workflow is:
 
-1. Load two MALDI datasets (e.g., two time points or two tissues) and their
-spatial coordinates (optional).
-
-2. Wrap them into AnnData objects (using scanpy / anndata).
-
+1. Load two MALDI datasets (e.g., two time points or two tissues) with optional spatial coordinates.
+2. Wrap them as `AnnData` objects (via `scanpy` / `anndata`).
 3. Normalize intensities per spectrum.
+4. Run the four GALAXY steps.
+5. Extract the aligned spectra for joint downstream analyses (e.g., PCA + Harmony + clustering).
 
-4. Run GALAXY:
-- peak calling and peak grouping
-- group matching
-- fine alignment
-
-5. Extract the aligned spectra and use them for joint analyses
-(e.g., PCA + Harmony + clustering).
-
-In simplified form, the core steps look like:
 ```python
 import scanpy as sc
-import MALDIpython as MALDIpy  # GALAXY implementation
+import GalaxyPython as gx
 
 # X = spectra, var = m/z table, obs = coordinates (see Tutorial_GALAXY.ipynb)
-MALDIdataAnn1 = ...
-MALDIdataAnn2 = ...
+MALDIdataAnn1 = ...   # unknown spectrum
+MALDIdataAnn2 = ...   # reference spectrum
 
-# Normalize per spectrum
+# Per-spectrum normalisation
 sc.pp.normalize_per_cell(MALDIdataAnn1)
 sc.pp.normalize_per_cell(MALDIdataAnn2)
 
-# Peak calling + peak groups
-PeakGroup = MALDIpy.PeakCalling(MALDIdataAnn1, MALDIdataAnn2)
+# Step 1 + Step 2: peak calling and peak grouping
+PeakGroup = gx.PeakCalling(MALDIdataAnn1, MALDIdataAnn2)
+PeakGroup.peak_calling(threshold=0.9)
+PeakGroup.peak_grouping(percentile=0.9)
 
-# Alignment object
-ExactAlign = MALDIpy.AnnDataMALDI(MALDIdataAnn1, MALDIdataAnn2)
-
-# Group similarity and greedy matching
+# Step 3: peak group pairing
+ExactAlign = gx.AnnDataMALDI(MALDIdataAnn1, MALDIdataAnn2)
 ExactAlign.get_corr_peakgroup_refined(PeakGroup.jointcluster)
-ExactAlign.greedy_match()
+ExactAlign.peak_group_pairing(criteria=0)
 
-# Fine alignment and summary
-ExactAlign.fine_align(threshould=0.2, ignore=True)
-alignment_results = ExactAlign.summarize()
+# Step 4: fine alignment assessment
+ExactAlign.fine_alignment_assessment(threshold=0.2, ignore=True)
+ExactAlign.summarize()
 ```
 
-Please refer to Tutorial_GALAXY.ipynb for a fully worked example with real
+Please refer to `Tutorial_GALAXY.ipynb` for a fully worked example with real
 data and plots.
 
+---
 
 ## Reproducing results from the manuscript
 
-The scripts in CodeInPaper/ (to be documented) correspond to the main analyses:
+The notebooks under `CodeInPaper/` reproduce the main analyses. Each
+subfolder has its own `README.md` with dataset access instructions:
 
-- Simulation study (mouse pancreas MALDI)
-Evaluates alignment error under controlled peak shifts and noise.
+- **Simulation study (mouse pancreas MALDI)** — alignment error under
+  controlled peak shifts and noise. See `CodeInPaper/MousePancreate.ipynb`.
+- **Macrophage metabolomics (atherosclerosis regression)** — aligns Week 5
+  MALDI spectra to Week 2 and performs joint spatial segmentation. See
+  `CodeInPaper/Maaike/`.
+- **Canine sarcoma classification** — aligns cancer tissue spectra to normal
+  tissue and assesses classification performance before/after alignment. See
+  `CodeInPaper/Sarcomas/`.
 
-- Atherosclerosis regression (macrophage metabolomics)
-Aligns Week 5 MALDI spectra to Week 2, evaluates performance using anchor m/z
-points, and performs joint spatial segmentation.
+**Data sources:**
 
-- Canine sarcoma data
-Aligns cancer tissue spectra to normal tissue, assesses classification
-performance before and after alignment, and performs joint clustering across
-cancer samples.
-
-Data sources:
-
-- Mouse pancreas MALDI: https://doi.org/10.5281/zenodo.3607915
-
+- Mouse pancreas MALDI: <https://doi.org/10.5281/zenodo.3607915>
 - Atherosclerosis regression MALDI: available from the data owners upon reasonable request.
+- Canine carcinoma MALDI: ProteomeXchange PRIDE accession `PXD010990` (<https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD010990>).
 
-- Canine carcinoma MALDI: PRIDE accession PXD010990
-(https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD010990)
+---
+
+## Citation
+
+If you use GALAXY in your research, please cite the JPR manuscript. See
+`CITATION.cff` (rendered by GitHub as a "Cite this repository" button) or:
+
+> Deng A, Zhang Y, Zhang Q. *GALAXY: Group Alignment of Mass Spectrometry data
+> for imaging and spatial metabolomics*. Journal of Proteome Research, 2026.
+
+---
+
+## License
+
+MIT — see `LICENSE`.
