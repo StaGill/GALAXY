@@ -1,22 +1,24 @@
 # Citation
 
-If you use GALAXY in your research, please cite the JPR manuscript:
+The GALAXY manuscript is currently **under peer review**. Until the published
+version is available, please cite this repository and contact the
+corresponding author for the latest preprint:
 
 > Deng A, Zhang Y, Zhang Q. *GALAXY: Group Alignment of Mass Spectrometry data
-> for imaging and spatial metabolomics*. Journal of Proteome Research, 2026.
+> for imaging and spatial metabolomics*. Manuscript under review, 2026.
 
 GitHub's "Cite this repository" button uses the
-[`CITATION.cff`](https://github.com/StaGill/Galaxy/blob/main/CITATION.cff)
-file in the repo, which exposes both APA-style and BibTeX citations.
+[`CITATION.cff`](https://github.com/StaGill/GALAXY/blob/main/CITATION.cff)
+file in the repo.
 
 ## BibTeX
 
 ```bibtex
-@article{deng2026galaxy,
-  title   = {GALAXY: Group Alignment of Mass Spectrometry data for imaging and spatial metabolomics},
-  author  = {Deng, Anji and Zhang, Yuyang and Zhang, Qihuang},
-  journal = {Journal of Proteome Research},
-  year    = {2026}
+@unpublished{deng2026galaxy,
+  title  = {GALAXY: Group Alignment of Mass Spectrometry data for imaging and spatial metabolomics},
+  author = {Deng, Anji and Zhang, Yuyang and Zhang, Qihuang},
+  note   = {Manuscript under review},
+  year   = {2026}
 }
 ```
 

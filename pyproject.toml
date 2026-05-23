@@ -50,10 +50,10 @@ dependencies = [
 test = ["pytest>=7.0"]
 
 [project.urls]
-Homepage = "https://github.com/StaGill/Galaxy"
-Repository = "https://github.com/StaGill/Galaxy"
-Issues = "https://github.com/StaGill/Galaxy/issues"
-Paper = "https://doi.org/10.0000/jpr.GALAXY-2026"
+Homepage = "https://stagill.github.io/GALAXY/"
+Documentation = "https://stagill.github.io/GALAXY/"
+Repository = "https://github.com/StaGill/GALAXY"
+Issues = "https://github.com/StaGill/GALAXY/issues"
 
 [tool.setuptools.dynamic]
 version = { attr = "GalaxyPython.__version__" }

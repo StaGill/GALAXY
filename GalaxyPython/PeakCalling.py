@@ -98,7 +98,7 @@ class PeakCalling(object):
 
     def callpeak(self, threshold=0.9):
         warnings.warn(
-            "callpeak() is deprecated; use peak_calling() to match the JPR paper.",
+            "callpeak() is deprecated; use peak_calling() to match the manuscript terminology.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -126,7 +126,7 @@ class PeakCalling(object):
 
     def grouppeaks(self, percentile=0.9):
         warnings.warn(
-            "grouppeaks() is deprecated; use peak_grouping() to match the JPR paper.",
+            "grouppeaks() is deprecated; use peak_grouping() to match the manuscript terminology.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -161,7 +161,7 @@ class PeakCalling_single(PeakCalling):
 
     def callpeak(self, threshold=0.9):
         warnings.warn(
-            "callpeak() is deprecated; use peak_calling() to match the JPR paper.",
+            "callpeak() is deprecated; use peak_calling() to match the manuscript terminology.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -177,7 +177,7 @@ class PeakCalling_single(PeakCalling):
 
     def grouppeaks(self, percentile=0.9):
         warnings.warn(
-            "grouppeaks() is deprecated; use peak_grouping() to match the JPR paper.",
+            "grouppeaks() is deprecated; use peak_grouping() to match the manuscript terminology.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -254,7 +254,7 @@ class PeakCallingmv(object):
 
     def callpeak(self, threshold=0.9):
         warnings.warn(
-            "callpeak() is deprecated; use peak_calling() to match the JPR paper.",
+            "callpeak() is deprecated; use peak_calling() to match the manuscript terminology.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -272,7 +272,7 @@ class PeakCallingmv(object):
 
     def grouppeaks(self, percentile=0.9):
         warnings.warn(
-            "grouppeaks() is deprecated; use peak_grouping() to match the JPR paper.",
+            "grouppeaks() is deprecated; use peak_grouping() to match the manuscript terminology.",
             DeprecationWarning,
             stacklevel=2,
         )

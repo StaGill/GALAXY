@@ -9,6 +9,8 @@ that prevent direct comparison.
 Anji Deng, Yuyang Zhang, and Qihuang Zhang\*
 McGill University — corresponding author: <qihuang.zhang@mcgill.ca>
 
+**Documentation:** <https://stagill.github.io/GALAXY/>
+
 ![Overview of the GALAXY workflow](images/galaxy_workflow.png)
 
 By aligning an "unknown" spectrum (or dataset) to a reference while *forcing*
@@ -20,7 +22,7 @@ analyses such as:
 - other multi-sample analyses that require a common m/z grid
 
 This repository contains the reference Python implementation accompanying the
-GALAXY manuscript (Deng, Zhang & Zhang, *Journal of Proteome Research*, 2026).
+GALAXY manuscript (Deng, Zhang & Zhang, 2026; under peer review).
 
 ---
 
@@ -40,8 +42,8 @@ GALAXY manuscript (Deng, Zhang & Zhang, *Journal of Proteome Research*, 2026).
 Clone the repository and install with `pip`:
 
 ```bash
-git clone https://github.com/StaGill/Galaxy.git
-cd Galaxy
+git clone https://github.com/StaGill/GALAXY.git
+cd GALAXY
 pip install -e .
 ```
 
@@ -154,11 +156,13 @@ subfolder has its own `README.md` with dataset access instructions:
 
 ## Citation
 
-If you use GALAXY in your research, please cite the JPR manuscript. See
-`CITATION.cff` (rendered by GitHub as a "Cite this repository" button) or:
+The GALAXY manuscript is currently under peer review. If you use GALAXY in
+your research, please cite this repository (see `CITATION.cff`, which GitHub
+renders as a "Cite this repository" button) and contact the corresponding
+author for the latest preprint:
 
 > Deng A, Zhang Y, Zhang Q. *GALAXY: Group Alignment of Mass Spectrometry data
-> for imaging and spatial metabolomics*. Journal of Proteome Research, 2026.
+> for imaging and spatial metabolomics*. Manuscript under review, 2026.
 
 ---
 

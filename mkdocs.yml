@@ -1,8 +1,8 @@
 site_name: GALAXY
 site_description: Group Alignment of Mass Spectrometry data for imaging and spatial metabolomics
-site_url: https://stagill.github.io/Galaxy/
-repo_url: https://github.com/StaGill/Galaxy
-repo_name: StaGill/Galaxy
+site_url: https://stagill.github.io/GALAXY/
+repo_url: https://github.com/StaGill/GALAXY
+repo_name: StaGill/GALAXY
 edit_uri: edit/main/docs/
 
 docs_dir: docs

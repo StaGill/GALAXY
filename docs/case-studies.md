@@ -1,6 +1,6 @@
 # Case studies
 
-The notebooks under [`CodeInPaper/`](https://github.com/StaGill/Galaxy/tree/main/CodeInPaper)
+The notebooks under [`CodeInPaper/`](https://github.com/StaGill/GALAXY/tree/main/CodeInPaper)
 reproduce the analyses in the GALAXY manuscript.
 
 | Subfolder / file                  | Case study                              | Manuscript section             | Dataset access                                                                 |

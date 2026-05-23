@@ -1,6 +1,6 @@
 """GALAXY: Group Alignment of Mass Spectrometry data.
 
-Implementation accompanying Deng, Zhang & Zhang (2026), Journal of Proteome Research.
+Implementation accompanying the Deng, Zhang & Zhang (2026) manuscript (under review).
 The four pipeline steps in the paper map to these public objects:
 
   Step 1  Peak Calling                  -> PeakCalling.peak_calling()

@@ -142,7 +142,7 @@ class AnnDataMALDI(object):
 
     def greedy_match(self, criteria=0):
         warnings.warn(
-            "greedy_match() is deprecated; use peak_group_pairing() to match the JPR paper.",
+            "greedy_match() is deprecated; use peak_group_pairing() to match the manuscript terminology.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -202,7 +202,7 @@ class AnnDataMALDI(object):
 
     def fine_align(self, threshould=0.2, ignore=False):
         warnings.warn(
-            "fine_align() is deprecated; use fine_alignment_assessment() to match the JPR paper.",
+            "fine_align() is deprecated; use fine_alignment_assessment() to match the manuscript terminology.",
             DeprecationWarning,
             stacklevel=2,
         )

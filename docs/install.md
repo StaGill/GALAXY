@@ -5,8 +5,8 @@ GALAXY targets Python &geq; 3.9.
 ## From source
 
 ```bash
-git clone https://github.com/StaGill/Galaxy.git
-cd Galaxy
+git clone https://github.com/StaGill/GALAXY.git
+cd GALAXY
 pip install -e .
 ```
 
