@@ -61,3 +61,6 @@ version = { attr = "GalaxyPython.__version__" }
 [tool.setuptools.packages.find]
 include = ["GalaxyPython*"]
 exclude = ["tests*", "CodeInPaper*"]
+
+[tool.setuptools.package-data]
+GalaxyPython = ["data/*.npz"]

@@ -73,6 +73,21 @@ The pre-2026 method names (`callpeak`, `grouppeaks`, `greedy_match`,
 
 ---
 
+## Toy data
+
+A 120-spectrum / 601-m/z-bin slice of the public mouse pancreas dataset ships
+with the package for tutorials and tests:
+
+```python
+import GalaxyPython as gx
+unk, ref = gx.datasets.load_mouse_pancreas_toy()
+```
+
+The "unknown" spectrum has a planted +2-bin rigid shift relative to the
+reference, so GALAXY should recover a shift of about +2 m/z bins.
+
+---
+
 ## Quick start
 
 A minimal example is given in `Tutorial_GALAXY.ipynb`. The basic workflow is:

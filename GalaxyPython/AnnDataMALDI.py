@@ -122,12 +122,13 @@ class AnnDataMALDI(object):
     def peak_group_pairing(self, criteria=0):
         """GALAXY Step 3: greedily pair peak groups based on the similarity matrix.
 
+        Operates on ``self.PearsonMatrix`` (computed by ``get_corr_peakgroup_refined``).
         Pairs survive only when the (distance-penalised) Pearson correlation
-        exceeds ``criteria`` (delta in the paper).
+        exceeds ``criteria`` (delta in the paper). The result is stored on
+        ``self.align_group`` as an n-by-2 matrix of matched (unknown, reference)
+        peak-group indices.
 
-        :param matrix: similarity matrix between m/z groups (computed by
-            get_corr_peakgroup_refined).
-        :return: n-by-2 matrix of matched (unknown, reference) peak-group indices.
+        :param criteria: minimum (distance-penalised) Pearson correlation. Defaults to 0.
         """
         alignlist = self.group_align_onestep(self.PearsonMatrix, criteria, origin=(0, 0))
         align_results = np.empty((len(alignlist), 2))

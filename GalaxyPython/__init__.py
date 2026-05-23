@@ -36,6 +36,7 @@ from .PeakCalling import (
     PeakCalling_single,
     PeakCallingmv,
 )
+from . import datasets
 
 __all__ = [
     "__version__",
@@ -47,6 +48,8 @@ __all__ = [
     "PeakCalling",
     "PeakCalling_single",
     "PeakCallingmv",
+    # Toy data
+    "datasets",
     # Utilities
     "prefilter_cells",
     "prefilter_genes",
