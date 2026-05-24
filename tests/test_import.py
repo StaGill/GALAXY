@@ -23,7 +23,7 @@ def test_public_api_present():
 
 
 def test_paper_aligned_methods_exist():
-    """Method names from the JPR-2026-04-07 manuscript are exposed on the right classes."""
+    """Method names from the current GALAXY manuscript are exposed on the right classes."""
     assert hasattr(gx.PeakCalling, "peak_calling")
     assert hasattr(gx.PeakCalling, "peak_grouping")
     assert hasattr(gx.AnnDataMALDI, "peak_group_pairing")

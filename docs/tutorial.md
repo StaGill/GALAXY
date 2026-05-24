@@ -60,7 +60,7 @@ analyses.
 
 ## Notes on terminology
 
-The JPR-2026 revision renamed the four pipeline steps. Pre-2026 names
+The current manuscript revision renamed the four pipeline steps. Pre-2026 names
 (`callpeak`, `grouppeaks`, `greedy_match`, `fine_align`) are kept as
 deprecated aliases and emit `DeprecationWarning`:
 

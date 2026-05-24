@@ -24,7 +24,7 @@ on a local macOS workstation (`/Users/anjideng1/...`). The hard-coded prefixes
 have been replaced with `f"{DATA_DIR}/..."` and `f"{OUTPUT_DIR}/..."` so that
 only the CONFIGURE-ME cell needs editing in a fresh environment.
 
-The notebooks use the JPR-2026 method names (`peak_calling`, `peak_grouping`,
-`peak_group_pairing`, `fine_alignment_assessment`). The legacy names
-(`callpeak`, `grouppeaks`, `greedy_match`, `fine_align`) remain available as
-deprecated aliases and will emit `DeprecationWarning`.
+The notebooks use the current manuscript's method names (`peak_calling`,
+`peak_grouping`, `peak_group_pairing`, `fine_alignment_assessment`). The
+legacy names (`callpeak`, `grouppeaks`, `greedy_match`, `fine_align`) remain
+available as deprecated aliases and will emit `DeprecationWarning`.
