@@ -61,8 +61,17 @@ class AnnDataMALDI(object):
     def get_corr_peakgroup_refined(self, cluster):
         """Compute the similarity matrix across each peak group.
 
-        Uses Pearson's correlation with a sliding-window refinement of +/- 4 m/z
-        units (Section 2.3 of the paper).
+        Uses Pearson's correlation with a sliding-window refinement of +/- 4 grid
+        points, that is four spacings of the m/z grid rather than an m/z interval of
+        four, so the physical width of the search scales with the gridding increment
+        (Section 2.3 of the paper).
+
+        Rows of the returned matrix are indexed by unknown peak groups and columns by
+        reference peak groups. The matrix is square but is not symmetric, because the
+        unknown window is centred on the midpoint of the unknown group while the
+        reference group is read from its own boundaries. Candidate pairs are
+        restricted to a band of +/- 2 groups around the diagonal; entries outside the
+        band are left at zero and can never be selected.
 
         :param cluster: the joint peak group object (jointcluster) from PeakCalling.
         """
@@ -89,6 +98,11 @@ class AnnDataMALDI(object):
                             headindexint_ref,
                             headindexint_ref + len(self.ref_clusters[i_ref]),
                         )
+                        if indexlist_unk[0] < 0 or indexlist_ref[0] < 0:
+                            # numpy indexes negatives cyclically, so the IndexError
+                            # below only catches the high-m/z end of the spectrum
+                            Can_align = False
+                            continue
                         try:
                             specsub_unk = self.meanspectrumUnk[indexlist_unk.tolist()]
                             specsub_ref = self.meanspectrumRef[indexlist_ref.tolist()]
@@ -151,9 +165,11 @@ class AnnDataMALDI(object):
     def fine_alignment_assessment(self, threshold=0.2, ignore=False, **kwargs):
         """GALAXY Step 4: rigid-body translation of unknown m/z values per paired group.
 
-        For each paired peak group, find the +/- 4 m/z offset whose diagonal-mean
-        Pearson correlation is maximal; if that maximum exceeds ``threshold``
-        (or if ``ignore=True``), apply that integer-index shift.
+        For each paired peak group, find the +/- 4 grid-point offset whose
+        diagonal-mean Pearson correlation is maximal; if that maximum exceeds
+        ``threshold`` (or if ``ignore=True``), apply that integer-index shift. An
+        offset of zero is a legitimate outcome: a group that is already aligned
+        attains its maximum there and is left in place.
 
         :param threshold: minimum diagonal-mean Pearson correlation to accept the shift.
             Defaults to 0.2.
